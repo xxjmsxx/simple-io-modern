@@ -22,6 +22,10 @@ module SocketIO
           @reconnecting = false
           @state = :disconnect
           @auto_reconnection = true
+          @ping_interval = @opts[:ping_interval] || 25000  # 25 seconds
+          @ping_timeout = @opts[:ping_timeout] || 5000     # 5 seconds
+          @last_pong_at = Time.now.to_i
+          @last_ping_at = Time.now.to_i
 
           Thread.new do
             loop do
